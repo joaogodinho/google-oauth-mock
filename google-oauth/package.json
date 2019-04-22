@@ -1,0 +1,12 @@
+{
+  "name": "google-oauth-mock",
+  "version": "1.0.0",
+  "description": "A mockup for Google OAuth",
+  "main": "app.js",
+  "scripts":{
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

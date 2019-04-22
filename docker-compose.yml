@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: openresty/openresty:stretch
+    ports:
+      - "127.0.0.1:443:443"
+    volumes:
+      - "./nginx/etc/nginx:/etc/nginx/conf.d:ro"
+      - "./nginx/etc/nginx/certs:/etc/nginx/certs:ro"
+      - "./nginx/etc/openresty/nginx.conf:/etc/openresty/nginx.conf:ro"
+    links:
+      - "google-oauth"
+    networks: 
+      - test-net 
+      - intranet
+    
+
+  google-oauth:
+    build: ./google-oauth
+    environment:
+      # - DEBUG=goauth
+      - DEBUG=*
+    networks:
+      - intranet
+
+networks:
+  test-net:
+    external: true
+    name: ${NETWORK}
+  intranet:
