@@ -1,11 +1,11 @@
-FROM node:11.14.0
+FROM node:11.14.0-alpine
 
 EXPOSE 3000
 
 WORKDIR /usr/app/src
 COPY package.json .
 
-RUN npm install
+RUN npm install --production
 
 COPY src/ .
 

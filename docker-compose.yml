@@ -2,7 +2,9 @@ version: "3.7"
 
 services:
   nginx:
-    image: openresty/openresty:stretch
+    # If lua scripts are needed
+    # image: openresty/openresty:1.13.6.1-alpine
+    image: nginx:1.15.12-alpine
     ports:
       - "127.0.0.1:443:443"
     volumes:
@@ -14,13 +16,19 @@ services:
     networks: 
       - test-net 
       - intranet
+    # To prevent nginx from looping in case host has
+    # 127.0.0.1    accounts.google.com
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     
 
   google-oauth:
     build: ./google-oauth
     environment:
-      # - DEBUG=goauth
-      - DEBUG=*
+      # - DEBUG=*
+      - DEBUG=goauth
+      - DOMAIN=${DOMAIN}
     networks:
       - intranet
 
