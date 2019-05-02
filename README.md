@@ -4,8 +4,13 @@ Mockup server for oauth and googleapis, only fakes `userinfo`
 
 Generate a `rootCA.pem` using `mkcert` for the domains: `accounts.google.com`, `www.googleapis.com`, `oauth2.googleapis.com`. Place the certs in `nginx/etc/nginx/certs`.
 
-Replace every `<domain>` reference in the JS src
+Create the `.env` file with the following:
 
-Set network and container to inject the proxy (`inject_mock.sh` file) as well as `.env` file with network
+```
+NETWORK=<network to inject>
+DOMAIN=<domain to fake>
+NGINX_CONTAINER=<nginx container name>
+TARGET_CONTAINER=<container to inject /etc/hosts in>
+```
 
-Set the `azp` and `aud` if needed in the JS src
+After `up`ing run `inject_mock.sh`
